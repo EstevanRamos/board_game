@@ -13,7 +13,7 @@ jobs:
 
       # Navigate into the subfolder
       - name: Change directory to board-game
-        run: cd board-game
+        run: cd board-game/
 
       - name: Install Node.js
         uses: actions/setup-node@v4
