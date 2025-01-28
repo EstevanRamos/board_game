@@ -11,17 +11,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # If you're using pnpm, uncomment this block and adjust the commands below
-      # - name: Install pnpm
-      #   uses: pnpm/action-setup@v3
-      #   with:
-      #     version: 8
+      # Navigate into the subfolder
+      - name: Change directory to board-game
+        run: cd board-game
 
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm' # Use 'pnpm' if you're using pnpm
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm install
@@ -35,8 +33,8 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v3
         with:
-          # This should match the `pages` option in your adapter-static options
-          path: 'build/'
+          # Update the path to the build output directory inside the subfolder
+          path: 'board-game/build/'
 
   deploy:
     needs: build_site
