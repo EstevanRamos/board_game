@@ -11,29 +11,30 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Navigate into the subfolder
-      - name: Change directory to board-game
-        run: cd board-game/
-
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
 
+      # Navigate into the board-game folder and install dependencies
       - name: Install dependencies
-        run: npm install
+        run: |
+          cd board-game
+          npm install
 
+      # Build the project inside the board-game folder
       - name: Build
         env:
           BASE_PATH: '/${{ github.event.repository.name }}'
         run: |
+          cd board-game
           npm run build
 
+      # Upload the build artifacts from the board-game/build folder
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v3
         with:
-          # Update the path to the build output directory inside the subfolder
           path: 'board-game/build/'
 
   deploy:
